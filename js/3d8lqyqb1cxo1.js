@@ -1,0 +1,1409 @@
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  "object" == typeof document ? document.currentScript : void 0,
+  98879,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "default", {
+        enumerable: !0,
+        get: function () {
+          return o;
+        },
+      }));
+    let n = e.r(71645),
+      i = "u" < typeof window,
+      l = i ? () => {} : n.useLayoutEffect,
+      a = i ? () => {} : n.useEffect;
+    function o(e) {
+      let { headManager: t, reduceComponentsToState: r } = e;
+      function o() {
+        if (t && t.mountedInstances) {
+          let e = n.Children.toArray(
+            Array.from(t.mountedInstances).filter(Boolean),
+          );
+          t.updateHead(r(e));
+        }
+      }
+      return (
+        i && (t?.mountedInstances?.add(e.children), o()),
+        l(
+          () => (
+            t?.mountedInstances?.add(e.children),
+            () => {
+              t?.mountedInstances?.delete(e.children);
+            }
+          ),
+        ),
+        l(
+          () => (
+            t && (t._pendingUpdate = o),
+            () => {
+              t && (t._pendingUpdate = o);
+            }
+          ),
+        ),
+        a(
+          () => (
+            t &&
+              t._pendingUpdate &&
+              (t._pendingUpdate(), (t._pendingUpdate = null)),
+            () => {
+              t &&
+                t._pendingUpdate &&
+                (t._pendingUpdate(), (t._pendingUpdate = null));
+            }
+          ),
+        ),
+        null
+      );
+    }
+  },
+  25633,
+  (e, t, r) => {
+    "use strict";
+    Object.defineProperty(r, "__esModule", { value: !0 });
+    var n = {
+      default: function () {
+        return g;
+      },
+      defaultHead: function () {
+        return c;
+      },
+    };
+    for (var i in n) Object.defineProperty(r, i, { enumerable: !0, get: n[i] });
+    let l = e.r(55682),
+      a = e.r(90809),
+      o = e.r(43476),
+      s = a._(e.r(71645)),
+      u = l._(e.r(98879)),
+      d = e.r(42732);
+    function c() {
+      return [
+        (0, o.jsx)("meta", { charSet: "utf-8" }, "charset"),
+        (0, o.jsx)(
+          "meta",
+          { name: "viewport", content: "width=device-width" },
+          "viewport",
+        ),
+      ];
+    }
+    function f(e, t) {
+      return "string" == typeof t || "number" == typeof t
+        ? e
+        : t.type === s.default.Fragment
+          ? e.concat(
+              s.default.Children.toArray(t.props.children).reduce(
+                (e, t) =>
+                  "string" == typeof t || "number" == typeof t
+                    ? e
+                    : e.concat(t),
+                [],
+              ),
+            )
+          : e.concat(t);
+    }
+    e.r(33525);
+    let p = ["name", "httpEquiv", "charSet", "itemProp"];
+    function m(e) {
+      let t, r, n, i;
+      return e
+        .reduce(f, [])
+        .reverse()
+        .concat(c().reverse())
+        .filter(
+          ((t = new Set()),
+          (r = new Set()),
+          (n = new Set()),
+          (i = {}),
+          (e) => {
+            let l = !0,
+              a = !1;
+            if (e.key && "number" != typeof e.key && e.key.indexOf("$") > 0) {
+              a = !0;
+              let r = e.key.slice(e.key.indexOf("$") + 1);
+              t.has(r) ? (l = !1) : t.add(r);
+            }
+            switch (e.type) {
+              case "title":
+              case "base":
+                r.has(e.type) ? (l = !1) : r.add(e.type);
+                break;
+              case "meta":
+                for (let t = 0, r = p.length; t < r; t++) {
+                  let r = p[t];
+                  if (e.props.hasOwnProperty(r))
+                    if ("charSet" === r) n.has(r) ? (l = !1) : n.add(r);
+                    else {
+                      let t = e.props[r],
+                        n = i[r] || new Set();
+                      ("name" !== r || !a) && n.has(t)
+                        ? (l = !1)
+                        : (n.add(t), (i[r] = n));
+                    }
+                }
+            }
+            return l;
+          }),
+        )
+        .reverse()
+        .map((e, t) => {
+          let r = e.key || t;
+          return s.default.cloneElement(e, { key: r });
+        });
+    }
+    let g = function ({ children: e }) {
+      let t = (0, s.useContext)(d.HeadManagerContext);
+      return (0, o.jsx)(u.default, {
+        reduceComponentsToState: m,
+        headManager: t,
+        children: e,
+      });
+    };
+    ("function" == typeof r.default ||
+      ("object" == typeof r.default && null !== r.default)) &&
+      void 0 === r.default.__esModule &&
+      (Object.defineProperty(r.default, "__esModule", { value: !0 }),
+      Object.assign(r.default, r),
+      (t.exports = r.default));
+  },
+  88143,
+  (e, t, r) => {
+    "use strict";
+    function n({
+      widthInt: e,
+      heightInt: t,
+      blurWidth: r,
+      blurHeight: i,
+      blurDataURL: l,
+      objectFit: a,
+    }) {
+      let o = r ? 40 * r : e,
+        s = i ? 40 * i : t,
+        u = o && s ? `viewBox='0 0 ${o} ${s}'` : "";
+      return `%3Csvg xmlns='http://www.w3.org/2000/svg' ${u}%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 100 -1' result='s'/%3E%3CfeFlood x='0' y='0' width='100%25' height='100%25'/%3E%3CfeComposite operator='out' in='s'/%3E%3CfeComposite in2='SourceGraphic'/%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Cimage width='100%25' height='100%25' x='0' y='0' preserveAspectRatio='${u ? "none" : "contain" === a ? "xMidYMid" : "cover" === a ? "xMidYMid slice" : "none"}' style='filter: url(%23b);' href='${l}'/%3E%3C/svg%3E`;
+    }
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "getImageBlurSvg", {
+        enumerable: !0,
+        get: function () {
+          return n;
+        },
+      }));
+  },
+  87690,
+  (e, t, r) => {
+    "use strict";
+    Object.defineProperty(r, "__esModule", { value: !0 });
+    var n = {
+      VALID_LOADERS: function () {
+        return l;
+      },
+      imageConfigDefault: function () {
+        return a;
+      },
+    };
+    for (var i in n) Object.defineProperty(r, i, { enumerable: !0, get: n[i] });
+    let l = ["default", "imgix", "cloudinary", "akamai", "custom"],
+      a = {
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+        imageSizes: [32, 48, 64, 96, 128, 256, 384],
+        path: "/_next/image",
+        loader: "default",
+        loaderFile: "",
+        domains: [],
+        disableStaticImages: !1,
+        minimumCacheTTL: 14400,
+        formats: ["image/webp"],
+        maximumDiskCacheSize: void 0,
+        maximumRedirects: 3,
+        maximumResponseBody: 5e7,
+        dangerouslyAllowLocalIP: !1,
+        dangerouslyAllowSVG: !1,
+        contentSecurityPolicy: "script-src 'none'; frame-src 'none'; sandbox;",
+        contentDispositionType: "attachment",
+        localPatterns: void 0,
+        remotePatterns: [],
+        qualities: [75],
+        unoptimized: !1,
+        customCacheHandler: !1,
+      };
+  },
+  8927,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "getImgProps", {
+        enumerable: !0,
+        get: function () {
+          return u;
+        },
+      }),
+      e.r(33525));
+    let n = e.r(43369),
+      i = e.r(88143),
+      l = e.r(87690),
+      a = ["-moz-initial", "fill", "none", "scale-down", void 0];
+    function o(e) {
+      return void 0 !== e.default;
+    }
+    function s(e) {
+      return void 0 === e
+        ? e
+        : "number" == typeof e
+          ? Number.isFinite(e)
+            ? e
+            : NaN
+          : "string" == typeof e && /^[0-9]+$/.test(e)
+            ? parseInt(e, 10)
+            : NaN;
+    }
+    function u(
+      {
+        src: e,
+        sizes: t,
+        unoptimized: r = !1,
+        priority: d = !1,
+        preload: c = !1,
+        loading: f,
+        className: p,
+        quality: m,
+        width: g,
+        height: h,
+        fill: b = !1,
+        style: y,
+        overrideSrc: v,
+        onLoad: _,
+        onLoadingComplete: x,
+        placeholder: w = "empty",
+        blurDataURL: j,
+        fetchPriority: S,
+        decoding: O = "async",
+        layout: E,
+        objectFit: P,
+        objectPosition: C,
+        lazyBoundary: M,
+        lazyRoot: I,
+        ...R
+      },
+      k,
+    ) {
+      var z;
+      let $,
+        A,
+        N,
+        { imgConf: D, showAltText: L, blurComplete: T, defaultLoader: q } = k,
+        H = D || l.imageConfigDefault;
+      if ("allSizes" in H) $ = H;
+      else {
+        let e = [...H.deviceSizes, ...H.imageSizes].sort((e, t) => e - t),
+          t = H.deviceSizes.sort((e, t) => e - t),
+          r = H.qualities?.sort((e, t) => e - t);
+        $ = { ...H, allSizes: e, deviceSizes: t, qualities: r };
+      }
+      if (void 0 === q)
+        throw Object.defineProperty(
+          Error(
+            "images.loaderFile detected but the file is missing default export.\nRead more: https://nextjs.org/docs/messages/invalid-images-config",
+          ),
+          "__NEXT_ERROR_CODE",
+          { value: "E163", enumerable: !1, configurable: !0 },
+        );
+      let U = R.loader || q;
+      (delete R.loader, delete R.srcSet);
+      let B = "__next_img_default" in U;
+      if (B) {
+        if ("custom" === $.loader)
+          throw Object.defineProperty(
+            Error(`Image with src "${e}" is missing "loader" prop.
+Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),
+            "__NEXT_ERROR_CODE",
+            { value: "E252", enumerable: !1, configurable: !0 },
+          );
+      } else {
+        let e = U;
+        U = (t) => {
+          let { config: r, ...n } = t;
+          return e(n);
+        };
+      }
+      if (E) {
+        "fill" === E && (b = !0);
+        let e = {
+          intrinsic: { maxWidth: "100%", height: "auto" },
+          responsive: { width: "100%", height: "auto" },
+        }[E];
+        e && (y = { ...y, ...e });
+        let r = { responsive: "100vw", fill: "100vw" }[E];
+        r && !t && (t = r);
+      }
+      let W = "",
+        F = s(g),
+        G = s(h);
+      if ((z = e) && "object" == typeof z && (o(z) || void 0 !== z.src)) {
+        let t = o(e) ? e.default : e;
+        if (!t.src)
+          throw Object.defineProperty(
+            Error(
+              `An object should only be passed to the image component src parameter if it comes from a static image import. It must include src. Received ${JSON.stringify(t)}`,
+            ),
+            "__NEXT_ERROR_CODE",
+            { value: "E460", enumerable: !1, configurable: !0 },
+          );
+        if (!t.height || !t.width)
+          throw Object.defineProperty(
+            Error(
+              `An object should only be passed to the image component src parameter if it comes from a static image import. It must include height and width. Received ${JSON.stringify(t)}`,
+            ),
+            "__NEXT_ERROR_CODE",
+            { value: "E48", enumerable: !1, configurable: !0 },
+          );
+        if (
+          ((A = t.blurWidth),
+          (N = t.blurHeight),
+          (j = j || t.blurDataURL),
+          (W = t.src),
+          !b)
+        )
+          if (F || G) {
+            if (F && !G) {
+              let e = F / t.width;
+              G = Math.round(t.height * e);
+            } else if (!F && G) {
+              let e = G / t.height;
+              F = Math.round(t.width * e);
+            }
+          } else ((F = t.width), (G = t.height));
+      }
+      let J = !d && !c && ("lazy" === f || void 0 === f);
+      ((!(e = "string" == typeof e ? e : W) ||
+        e.startsWith("data:") ||
+        e.startsWith("blob:")) &&
+        ((r = !0), (J = !1)),
+        $.unoptimized && (r = !0),
+        B &&
+          !$.dangerouslyAllowSVG &&
+          e.split("?", 1)[0].endsWith(".svg") &&
+          (r = !0));
+      let X = s(m),
+        V = Object.assign(
+          b
+            ? {
+                position: "absolute",
+                height: "100%",
+                width: "100%",
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0,
+                objectFit: P,
+                objectPosition: C,
+              }
+            : {},
+          L ? {} : { color: "transparent" },
+          y,
+        ),
+        Y =
+          T || "empty" === w
+            ? null
+            : "blur" === w
+              ? `url("data:image/svg+xml;charset=utf-8,${(0, i.getImageBlurSvg)({ widthInt: F, heightInt: G, blurWidth: A, blurHeight: N, blurDataURL: j || "", objectFit: V.objectFit })}")`
+              : `url("${w}")`,
+        K = a.includes(V.objectFit)
+          ? "fill" === V.objectFit
+            ? "100% 100%"
+            : "cover"
+          : V.objectFit,
+        Q = Y
+          ? {
+              backgroundSize: K,
+              backgroundPosition: V.objectPosition || "50% 50%",
+              backgroundRepeat: "no-repeat",
+              backgroundImage: Y,
+            }
+          : {},
+        Z = (function ({
+          config: e,
+          src: t,
+          unoptimized: r,
+          width: i,
+          quality: l,
+          sizes: a,
+          loader: o,
+        }) {
+          if (r) {
+            if (t.startsWith("/") && !t.startsWith("//")) {
+              let e = (0, n.getDeploymentId)();
+              if (e) {
+                let r = t.indexOf("?");
+                if (-1 !== r) {
+                  let n = new URLSearchParams(t.slice(r + 1));
+                  n.get("dpl") ||
+                    (n.append("dpl", e),
+                    (t = t.slice(0, r) + "?" + n.toString()));
+                } else t += `?dpl=${e}`;
+              }
+            }
+            return { src: t, srcSet: void 0, sizes: void 0 };
+          }
+          let { widths: s, kind: u } = (function (
+              { deviceSizes: e, allSizes: t },
+              r,
+              n,
+            ) {
+              if (n) {
+                let r = /(^|\s)(1?\d?\d)vw/g,
+                  i = [];
+                for (let e; (e = r.exec(n)); ) i.push(parseInt(e[2]));
+                if (i.length) {
+                  let r = 0.01 * Math.min(...i);
+                  return { widths: t.filter((t) => t >= e[0] * r), kind: "w" };
+                }
+                return { widths: t, kind: "w" };
+              }
+              return "number" != typeof r
+                ? { widths: e, kind: "w" }
+                : {
+                    widths: [
+                      ...new Set(
+                        [r, 2 * r].map(
+                          (e) => t.find((t) => t >= e) || t[t.length - 1],
+                        ),
+                      ),
+                    ],
+                    kind: "x",
+                  };
+            })(e, i, a),
+            d = s.length - 1;
+          return {
+            sizes: a || "w" !== u ? a : "100vw",
+            srcSet: s
+              .map(
+                (r, n) =>
+                  `${o({ config: e, src: t, quality: l, width: r })} ${"w" === u ? r : n + 1}${u}`,
+              )
+              .join(", "),
+            src: o({ config: e, src: t, quality: l, width: s[d] }),
+          };
+        })({
+          config: $,
+          src: e,
+          unoptimized: r,
+          width: F,
+          quality: X,
+          sizes: t,
+          loader: U,
+        }),
+        ee = J ? "lazy" : f;
+      return {
+        props: {
+          ...R,
+          loading: ee,
+          fetchPriority: S,
+          width: F,
+          height: G,
+          decoding: O,
+          className: p,
+          style: { ...V, ...Q },
+          sizes: Z.sizes,
+          srcSet: Z.srcSet,
+          src: v || Z.src,
+        },
+        meta: { unoptimized: r, preload: c || d, placeholder: w, fill: b },
+      };
+    }
+  },
+  18556,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "ImageConfigContext", {
+        enumerable: !0,
+        get: function () {
+          return l;
+        },
+      }));
+    let n = e.r(55682)._(e.r(71645)),
+      i = e.r(87690),
+      l = n.default.createContext(i.imageConfigDefault);
+  },
+  65856,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "RouterContext", {
+        enumerable: !0,
+        get: function () {
+          return n;
+        },
+      }));
+    let n = e.r(55682)._(e.r(71645)).default.createContext(null);
+  },
+  70965,
+  (e, t, r) => {
+    "use strict";
+    function n(e, t) {
+      let r = e || 75;
+      return t?.qualities?.length
+        ? t.qualities.reduce(
+            (e, t) => (Math.abs(t - r) < Math.abs(e - r) ? t : e),
+            t.qualities[0],
+          )
+        : r;
+    }
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "findClosestQuality", {
+        enumerable: !0,
+        get: function () {
+          return n;
+        },
+      }));
+  },
+  1948,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "default", {
+        enumerable: !0,
+        get: function () {
+          return a;
+        },
+      }));
+    let n = e.r(70965),
+      i = e.r(43369);
+    function l({ config: e, src: t, width: r, quality: a }) {
+      let o = (0, i.getDeploymentId)();
+      if (t.startsWith("/") && !t.startsWith("//")) {
+        let e = t.indexOf("?");
+        if (-1 !== e) {
+          let r = new URLSearchParams(t.slice(e + 1)),
+            n = r.get("dpl");
+          if (n) {
+            ((o = n), r.delete("dpl"));
+            let i = r.toString();
+            t = t.slice(0, e) + (i ? "?" + i : "");
+          }
+        }
+      }
+      if (
+        t.startsWith("/") &&
+        t.includes("?") &&
+        e.localPatterns?.length === 1 &&
+        "**" === e.localPatterns[0].pathname &&
+        "" === e.localPatterns[0].search
+      )
+        throw Object.defineProperty(
+          Error(`Image with src "${t}" is using a query string which is not configured in images.localPatterns.
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-localpatterns`),
+          "__NEXT_ERROR_CODE",
+          { value: "E871", enumerable: !1, configurable: !0 },
+        );
+      let s = (0, n.findClosestQuality)(a, e);
+      return `${e.path}?url=${encodeURIComponent(t)}&w=${r}&q=${s}${t.startsWith("/") && o ? `&dpl=${o}` : ""}`;
+    }
+    l.__next_img_default = !0;
+    let a = l;
+  },
+  18581,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "useMergedRef", {
+        enumerable: !0,
+        get: function () {
+          return i;
+        },
+      }));
+    let n = e.r(71645);
+    function i(e, t) {
+      let r = (0, n.useRef)(null),
+        i = (0, n.useRef)(null);
+      return (0, n.useCallback)(
+        (n) => {
+          if (null === n) {
+            let e = r.current;
+            e && ((r.current = null), e());
+            let t = i.current;
+            t && ((i.current = null), t());
+          } else (e && (r.current = l(e, n)), t && (i.current = l(t, n)));
+        },
+        [e, t],
+      );
+    }
+    function l(e, t) {
+      if ("function" != typeof e)
+        return (
+          (e.current = t),
+          () => {
+            e.current = null;
+          }
+        );
+      {
+        let r = e(t);
+        return "function" == typeof r ? r : () => e(null);
+      }
+    }
+    ("function" == typeof r.default ||
+      ("object" == typeof r.default && null !== r.default)) &&
+      void 0 === r.default.__esModule &&
+      (Object.defineProperty(r.default, "__esModule", { value: !0 }),
+      Object.assign(r.default, r),
+      (t.exports = r.default));
+  },
+  5500,
+  (e, t, r) => {
+    "use strict";
+    (Object.defineProperty(r, "__esModule", { value: !0 }),
+      Object.defineProperty(r, "Image", {
+        enumerable: !0,
+        get: function () {
+          return _;
+        },
+      }));
+    let n = e.r(55682),
+      i = e.r(90809),
+      l = e.r(43476),
+      a = i._(e.r(71645)),
+      o = n._(e.r(74080)),
+      s = n._(e.r(25633)),
+      u = e.r(8927),
+      d = e.r(87690),
+      c = e.r(18556);
+    e.r(33525);
+    let f = e.r(65856),
+      p = n._(e.r(1948)),
+      m = e.r(18581),
+      g = {
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+        imageSizes: [32, 48, 64, 96, 128, 256, 384],
+        qualities: [75],
+        path: "/_next/image",
+        loader: "default",
+        dangerouslyAllowSVG: !1,
+        unoptimized: !0,
+      };
+    function h(e, t, r, n, i, l, a) {
+      let o = e?.src;
+      e &&
+        e["data-loaded-src"] !== o &&
+        ((e["data-loaded-src"] = o),
+        ("decode" in e ? e.decode() : Promise.resolve())
+          .catch(() => {})
+          .then(() => {
+            if (e.parentElement && e.isConnected) {
+              if (("empty" !== t && i(!0), r?.current)) {
+                let t = new Event("load");
+                Object.defineProperty(t, "target", { writable: !1, value: e });
+                let n = !1,
+                  i = !1;
+                r.current({
+                  ...t,
+                  nativeEvent: t,
+                  currentTarget: e,
+                  target: e,
+                  isDefaultPrevented: () => n,
+                  isPropagationStopped: () => i,
+                  persist: () => {},
+                  preventDefault: () => {
+                    ((n = !0), t.preventDefault());
+                  },
+                  stopPropagation: () => {
+                    ((i = !0), t.stopPropagation());
+                  },
+                });
+              }
+              n?.current && n.current(e);
+            }
+          }));
+    }
+    function b(e) {
+      return a.use ? { fetchPriority: e } : { fetchpriority: e };
+    }
+    "u" < typeof window && (globalThis.__NEXT_IMAGE_IMPORTED = !0);
+    let y = (0, a.forwardRef)(
+      (
+        {
+          src: e,
+          srcSet: t,
+          sizes: r,
+          height: n,
+          width: i,
+          decoding: o,
+          className: s,
+          style: u,
+          fetchPriority: d,
+          placeholder: c,
+          loading: f,
+          unoptimized: p,
+          fill: g,
+          onLoadRef: y,
+          onLoadingCompleteRef: v,
+          setBlurComplete: _,
+          setShowAltText: x,
+          sizesInput: w,
+          onLoad: j,
+          onError: S,
+          ...O
+        },
+        E,
+      ) => {
+        let P = (0, a.useCallback)(
+            (e) => {
+              e && (S && (e.src = e.src), e.complete && h(e, c, y, v, _, p, w));
+            },
+            [e, c, y, v, _, S, p, w],
+          ),
+          C = (0, m.useMergedRef)(E, P);
+        return (0, l.jsx)("img", {
+          ...O,
+          ...b(d),
+          loading: f,
+          width: i,
+          height: n,
+          decoding: o,
+          "data-nimg": g ? "fill" : "1",
+          className: s,
+          style: u,
+          sizes: r,
+          srcSet: t,
+          src: e,
+          ref: C,
+          onLoad: (e) => {
+            h(e.currentTarget, c, y, v, _, p, w);
+          },
+          onError: (e) => {
+            (x(!0), "empty" !== c && _(!0), S && S(e));
+          },
+        });
+      },
+    );
+    function v({ isAppRouter: e, imgAttributes: t }) {
+      let r = {
+        as: "image",
+        imageSrcSet: t.srcSet,
+        imageSizes: t.sizes,
+        crossOrigin: t.crossOrigin,
+        referrerPolicy: t.referrerPolicy,
+        ...b(t.fetchPriority),
+      };
+      return e && o.default.preload
+        ? (o.default.preload(t.src, r), null)
+        : (0, l.jsx)(s.default, {
+            children: (0, l.jsx)(
+              "link",
+              { rel: "preload", href: t.srcSet ? void 0 : t.src, ...r },
+              "__nimg-" + t.src + t.srcSet + t.sizes,
+            ),
+          });
+    }
+    let _ = (0, a.forwardRef)((e, t) => {
+      let r = (0, a.useContext)(f.RouterContext),
+        n = (0, a.useContext)(c.ImageConfigContext),
+        i = (0, a.useMemo)(() => {
+          let e = g || n || d.imageConfigDefault,
+            t = [...e.deviceSizes, ...e.imageSizes].sort((e, t) => e - t),
+            r = e.deviceSizes.sort((e, t) => e - t),
+            i = e.qualities?.sort((e, t) => e - t);
+          return {
+            ...e,
+            allSizes: t,
+            deviceSizes: r,
+            qualities: i,
+            localPatterns:
+              "u" < typeof window ? n?.localPatterns : e.localPatterns,
+          };
+        }, [n]),
+        { onLoad: o, onLoadingComplete: s } = e,
+        m = (0, a.useRef)(o);
+      (0, a.useEffect)(() => {
+        m.current = o;
+      }, [o]);
+      let h = (0, a.useRef)(s);
+      (0, a.useEffect)(() => {
+        h.current = s;
+      }, [s]);
+      let [b, _] = (0, a.useState)(!1),
+        [x, w] = (0, a.useState)(!1),
+        { props: j, meta: S } = (0, u.getImgProps)(e, {
+          defaultLoader: p.default,
+          imgConf: i,
+          blurComplete: b,
+          showAltText: x,
+        });
+      return (0, l.jsxs)(l.Fragment, {
+        children: [
+          (0, l.jsx)(y, {
+            ...j,
+            unoptimized: S.unoptimized,
+            placeholder: S.placeholder,
+            fill: S.fill,
+            onLoadRef: m,
+            onLoadingCompleteRef: h,
+            setBlurComplete: _,
+            setShowAltText: w,
+            sizesInput: e.sizes,
+            ref: t,
+          }),
+          S.preload
+            ? (0, l.jsx)(v, { isAppRouter: !r, imgAttributes: j })
+            : null,
+        ],
+      });
+    });
+    ("function" == typeof r.default ||
+      ("object" == typeof r.default && null !== r.default)) &&
+      void 0 === r.default.__esModule &&
+      (Object.defineProperty(r.default, "__esModule", { value: !0 }),
+      Object.assign(r.default, r),
+      (t.exports = r.default));
+  },
+  94909,
+  (e, t, r) => {
+    "use strict";
+    Object.defineProperty(r, "__esModule", { value: !0 });
+    var n = {
+      default: function () {
+        return d;
+      },
+      getImageProps: function () {
+        return u;
+      },
+    };
+    for (var i in n) Object.defineProperty(r, i, { enumerable: !0, get: n[i] });
+    let l = e.r(55682),
+      a = e.r(8927),
+      o = e.r(5500),
+      s = l._(e.r(1948));
+    function u(e) {
+      let { props: t } = (0, a.getImgProps)(e, {
+        defaultLoader: s.default,
+        imgConf: {
+          deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+          imageSizes: [32, 48, 64, 96, 128, 256, 384],
+          qualities: [75],
+          path: "/_next/image",
+          loader: "default",
+          dangerouslyAllowSVG: !1,
+          unoptimized: !0,
+        },
+      });
+      for (let [e, r] of Object.entries(t)) void 0 === r && delete t[e];
+      return { props: t };
+    }
+    let d = o.Image;
+  },
+  57688,
+  (e, t, r) => {
+    t.exports = e.r(94909);
+  },
+  70182,
+  (e) => {
+    "use strict";
+    var t = e.i(43476),
+      r = e.i(71645),
+      n = e.i(57688);
+    let i = [
+      { href: "#home", label: "Home" },
+      { href: "#mission", label: "Mission" },
+      { href: "#hardware", label: "Hardware" },
+      { href: "#about", label: "About" },
+      { href: "#team", label: "Team" },
+      { href: "#blog", label: "Blog" },
+      { href: "#sponsors", label: "Sponsors" },
+      { href: "#contact", label: "Contact" },
+    ];
+    function l({ size: e = 48 }) {
+      return (0, t.jsx)(n.default, {
+        src: "/HELIA_logo_trimmed.png",
+        alt: "Project Helia",
+        width: 909,
+        height: 205,
+        priority: !0,
+        className: "w-auto",
+        style: { height: e },
+      });
+    }
+    function a({ open: e }) {
+      return (0, t.jsx)("svg", {
+        viewBox: "0 0 24 24",
+        className: "size-6",
+        fill: "none",
+        "aria-hidden": !0,
+        children: e
+          ? (0, t.jsx)("path", {
+              d: "M6 6l12 12M18 6L6 18",
+              stroke: "currentColor",
+              strokeWidth: 2,
+              strokeLinecap: "round",
+            })
+          : (0, t.jsx)("path", {
+              d: "M4 7h16M4 12h16M4 17h16",
+              stroke: "currentColor",
+              strokeWidth: 2,
+              strokeLinecap: "round",
+            }),
+      });
+    }
+    e.s(
+      [
+        "default",
+        0,
+        function ({ prefix: e = "" }) {
+          let [n, o] = (0, r.useState)(e ? "#hardware" : i[0].href),
+            [s, u] = (0, r.useState)(!1);
+          return (
+            (0, r.useEffect)(() => {
+              let e = i
+                  .map((e) => document.getElementById(e.href.slice(1)))
+                  .filter((e) => null !== e),
+                t = new IntersectionObserver(
+                  (e) => {
+                    for (let t of e) t.isIntersecting && o(`#${t.target.id}`);
+                  },
+                  { rootMargin: "-45% 0px -50% 0px" },
+                );
+              return (e.forEach((e) => t.observe(e)), () => t.disconnect());
+            }, []),
+            (0, t.jsxs)("nav", {
+              className:
+                "fixed inset-x-0 top-0 z-100 border-b border-white/8 bg-nav/65 backdrop-blur-lg",
+              children: [
+                (0, t.jsxs)("div", {
+                  className:
+                    "grid grid-cols-[1fr_0px_1fr] items-center px-gutter py-3.5 md:grid-cols-[1fr_auto_1fr]",
+                  children: [
+                    (0, t.jsx)("a", {
+                      href: `${e}#home`,
+                      className: "halo-shape justify-self-start",
+                      children: (0, t.jsx)(l, {}),
+                    }),
+                    (0, t.jsx)("div", {
+                      className:
+                        "hidden flex-wrap justify-center gap-[clamp(16px,3vw,36px)] md:flex",
+                      children: i.map((r) =>
+                        (0, t.jsx)(
+                          "a",
+                          {
+                            href: `${e}${r.href}`,
+                            className: `halo rounded-full px-3.5 py-1.5 text-sm font-semibold tracking-[0.3px] text-white/85 hover:bg-white/10 ${r.href === n ? "bg-accent/15" : ""}`,
+                            children: r.label,
+                          },
+                          r.href,
+                        ),
+                      ),
+                    }),
+                    (0, t.jsx)("button", {
+                      type: "button",
+                      onClick: () => u((e) => !e),
+                      "aria-label": s ? "Close menu" : "Open menu",
+                      "aria-expanded": s,
+                      className:
+                        "halo-shape col-start-3 justify-self-end text-white md:hidden",
+                      children: (0, t.jsx)(a, { open: s }),
+                    }),
+                  ],
+                }),
+                s &&
+                  (0, t.jsx)("div", {
+                    className:
+                      "flex flex-col gap-1 border-t border-white/8 px-gutter py-4 md:hidden",
+                    children: i.map((r) =>
+                      (0, t.jsx)(
+                        "a",
+                        {
+                          href: `${e}${r.href}`,
+                          onClick: () => u(!1),
+                          className: `rounded-lg px-3.5 py-2.5 text-sm font-semibold tracking-[0.3px] text-white/85 hover:bg-white/10 ${r.href === n ? "bg-accent/15" : ""}`,
+                          children: r.label,
+                        },
+                        r.href,
+                      ),
+                    ),
+                  }),
+              ],
+            })
+          );
+        },
+      ],
+      70182,
+    );
+  },
+  8341,
+  (e, t, r) => {
+    "use strict";
+    Object.defineProperty(r, "__esModule", { value: !0 });
+    var n = {
+      cancelIdleCallback: function () {
+        return a;
+      },
+      requestIdleCallback: function () {
+        return l;
+      },
+    };
+    for (var i in n) Object.defineProperty(r, i, { enumerable: !0, get: n[i] });
+    let l =
+        ("u" > typeof self &&
+          self.requestIdleCallback &&
+          self.requestIdleCallback.bind(window)) ||
+        function (e) {
+          let t = Date.now();
+          return self.setTimeout(function () {
+            e({
+              didTimeout: !1,
+              timeRemaining: function () {
+                return Math.max(0, 50 - (Date.now() - t));
+              },
+            });
+          }, 1);
+        },
+      a =
+        ("u" > typeof self &&
+          self.cancelIdleCallback &&
+          self.cancelIdleCallback.bind(window)) ||
+        function (e) {
+          return clearTimeout(e);
+        };
+    ("function" == typeof r.default ||
+      ("object" == typeof r.default && null !== r.default)) &&
+      void 0 === r.default.__esModule &&
+      (Object.defineProperty(r.default, "__esModule", { value: !0 }),
+      Object.assign(r.default, r),
+      (t.exports = r.default));
+  },
+  19083,
+  (e, t, r) => {
+    "use strict";
+    Object.defineProperty(r, "__esModule", { value: !0 });
+    var n = {
+      ESCAPE_REGEX: function () {
+        return a;
+      },
+      htmlEscapeAttributeString: function () {
+        return d;
+      },
+      htmlEscapeJsonString: function () {
+        return u;
+      },
+    };
+    for (var i in n) Object.defineProperty(r, i, { enumerable: !0, get: n[i] });
+    let l = {
+        "&": "\\u0026",
+        ">": "\\u003e",
+        "<": "\\u003c",
+        "\u2028": "\\u2028",
+        "\u2029": "\\u2029",
+      },
+      a = /[&><\u2028\u2029]/g,
+      o = {
+        "&": "&amp;",
+        '"': "&quot;",
+        "'": "&#39;",
+        "<": "&lt;",
+        ">": "&gt;",
+      },
+      s = /[&"'<>]/g;
+    function u(e) {
+      return e.replace(a, (e) => l[e]);
+    }
+    function d(e) {
+      return e.replace(s, (e) => o[e]);
+    }
+  },
+  79520,
+  (e, t, r) => {
+    "use strict";
+    Object.defineProperty(r, "__esModule", { value: !0 });
+    var n = {
+      default: function () {
+        return _;
+      },
+      handleClientScriptLoad: function () {
+        return b;
+      },
+      initScriptLoader: function () {
+        return y;
+      },
+    };
+    for (var i in n) Object.defineProperty(r, i, { enumerable: !0, get: n[i] });
+    let l = e.r(55682),
+      a = e.r(90809),
+      o = e.r(43476),
+      s = l._(e.r(74080)),
+      u = a._(e.r(71645)),
+      d = e.r(42732),
+      c = e.r(22737),
+      f = e.r(8341),
+      p = e.r(19083),
+      m = new Map(),
+      g = new Set(),
+      h = (e) => {
+        let {
+            src: t,
+            id: r,
+            onLoad: n = () => {},
+            onReady: i = null,
+            dangerouslySetInnerHTML: l,
+            children: a = "",
+            strategy: o = "afterInteractive",
+            onError: u,
+            stylesheets: d,
+          } = e,
+          f = r || t;
+        if (f && g.has(f)) return;
+        if (m.has(t)) {
+          (g.add(f), m.get(t).then(n, u));
+          return;
+        }
+        let p = () => {
+            (i && i(), g.add(f));
+          },
+          h = document.createElement("script"),
+          b = new Promise((e, t) => {
+            (h.addEventListener("load", function (t) {
+              (e(), n && n.call(this, t), p());
+            }),
+              h.addEventListener("error", function (e) {
+                t(e);
+              }));
+          }).catch(function (e) {
+            u && u(e);
+          });
+        (l
+          ? ((h.innerHTML = l.__html || ""), p())
+          : a
+            ? ((h.textContent =
+                "string" == typeof a ? a : Array.isArray(a) ? a.join("") : ""),
+              p())
+            : t && ((h.src = t), m.set(t, b)),
+          (0, c.setAttributesFromProps)(h, e),
+          "worker" === o && h.setAttribute("type", "text/partytown"),
+          h.setAttribute("data-nscript", o),
+          d &&
+            ((e) => {
+              if (s.default.preinit)
+                return e.forEach((e) => {
+                  s.default.preinit(e, { as: "style" });
+                });
+              if ("u" > typeof window) {
+                let t = document.head;
+                e.forEach((e) => {
+                  let r = document.createElement("link");
+                  ((r.type = "text/css"),
+                    (r.rel = "stylesheet"),
+                    (r.href = e),
+                    t.appendChild(r));
+                });
+              }
+            })(d),
+          document.body.appendChild(h));
+      };
+    function b(e) {
+      let { strategy: t = "afterInteractive" } = e;
+      "lazyOnload" === t
+        ? window.addEventListener("load", () => {
+            (0, f.requestIdleCallback)(() => h(e));
+          })
+        : h(e);
+    }
+    function y(e) {
+      (e.forEach(b),
+        [
+          ...document.querySelectorAll('[data-nscript="beforeInteractive"]'),
+          ...document.querySelectorAll('[data-nscript="beforePageRender"]'),
+        ].forEach((e) => {
+          let t = e.id || e.getAttribute("src");
+          g.add(t);
+        }));
+    }
+    function v(e) {
+      let {
+          id: t,
+          src: r = "",
+          onLoad: n = () => {},
+          onReady: i = null,
+          strategy: l = "afterInteractive",
+          onError: a,
+          stylesheets: c,
+          ...m
+        } = e,
+        {
+          updateScripts: b,
+          scripts: y,
+          getIsSsr: v,
+          appDir: _,
+          nonce: x,
+        } = (0, u.useContext)(d.HeadManagerContext);
+      x = m.nonce || x;
+      let w = (0, u.useRef)(!1);
+      (0, u.useEffect)(() => {
+        let e = t || r;
+        w.current || (i && e && g.has(e) && i(), (w.current = !0));
+      }, [i, t, r]);
+      let j = (0, u.useRef)(!1);
+      if (
+        ((0, u.useEffect)(() => {
+          if (!j.current) {
+            if ("afterInteractive" === l) h(e);
+            else
+              "lazyOnload" === l &&
+                ("complete" === document.readyState
+                  ? (0, f.requestIdleCallback)(() => h(e))
+                  : window.addEventListener("load", () => {
+                      (0, f.requestIdleCallback)(() => h(e));
+                    }));
+            j.current = !0;
+          }
+        }, [e, l]),
+        ("beforeInteractive" === l || "worker" === l) &&
+          (b
+            ? ((y[l] = (y[l] || []).concat([
+                {
+                  id: t,
+                  src: r,
+                  onLoad: n,
+                  onReady: i,
+                  onError: a,
+                  ...m,
+                  nonce: x,
+                },
+              ])),
+              b(y))
+            : v && v()
+              ? g.add(t || r)
+              : v && !v() && h({ ...e, nonce: x })),
+        _)
+      ) {
+        if (
+          (c &&
+            c.forEach((e) => {
+              s.default.preinit(e, { as: "style" });
+            }),
+          "beforeInteractive" === l)
+        )
+          if (!r)
+            return (
+              m.dangerouslySetInnerHTML &&
+                ((m.children = m.dangerouslySetInnerHTML.__html),
+                delete m.dangerouslySetInnerHTML),
+              (0, o.jsx)("script", {
+                nonce: x,
+                dangerouslySetInnerHTML: {
+                  __html: `(self.__next_s=self.__next_s||[]).push(${(0, p.htmlEscapeJsonString)(JSON.stringify([0, { ...m, id: t }]))})`,
+                },
+              })
+            );
+          else
+            return (
+              s.default.preload(
+                r,
+                m.integrity
+                  ? {
+                      as: "script",
+                      integrity: m.integrity,
+                      nonce: x,
+                      crossOrigin: m.crossOrigin,
+                    }
+                  : { as: "script", nonce: x, crossOrigin: m.crossOrigin },
+              ),
+              (0, o.jsx)("script", {
+                nonce: x,
+                dangerouslySetInnerHTML: {
+                  __html: `(self.__next_s=self.__next_s||[]).push(${(0, p.htmlEscapeJsonString)(JSON.stringify([r, { ...m, id: t }]))})`,
+                },
+              })
+            );
+        "afterInteractive" === l &&
+          r &&
+          s.default.preload(
+            r,
+            m.integrity
+              ? {
+                  as: "script",
+                  integrity: m.integrity,
+                  nonce: x,
+                  crossOrigin: m.crossOrigin,
+                }
+              : { as: "script", nonce: x, crossOrigin: m.crossOrigin },
+          );
+      }
+      return null;
+    }
+    Object.defineProperty(v, "__nextScript", { value: !0 });
+    let _ = v;
+    ("function" == typeof r.default ||
+      ("object" == typeof r.default && null !== r.default)) &&
+      void 0 === r.default.__esModule &&
+      (Object.defineProperty(r.default, "__esModule", { value: !0 }),
+      Object.assign(r.default, r),
+      (t.exports = r.default));
+  },
+  43550,
+  (e) => {
+    "use strict";
+    var t = e.i(43476),
+      r = e.i(71645);
+    let n = [
+      { label: "DAYS", value: 0 },
+      { label: "HRS", value: 0 },
+      { label: "MIN", value: 0 },
+      { label: "SEC", value: 0 },
+    ];
+    function i(e) {
+      let t = setInterval(e, 1e3);
+      return () => clearInterval(t);
+    }
+    function l() {
+      return Math.floor(Date.now() / 1e3);
+    }
+    function a() {
+      return null;
+    }
+    e.s([
+      "default",
+      0,
+      function ({ targetDate: e }) {
+        let o = (0, r.useSyncExternalStore)(i, l, a),
+          s = (0, r.useMemo)(() => {
+            let t;
+            return null === o
+              ? n
+              : [
+                  {
+                    label: "DAYS",
+                    value: Math.floor(
+                      (t = Math.max(0, new Date(e).getTime() - Date.now())) /
+                        864e5,
+                    ),
+                  },
+                  { label: "HRS", value: Math.floor((t % 864e5) / 36e5) },
+                  { label: "MIN", value: Math.floor((t % 36e5) / 6e4) },
+                  { label: "SEC", value: Math.floor((t % 6e4) / 1e3) },
+                ];
+          }, [o, e]);
+        return (0, t.jsx)("div", {
+          className:
+            "inline-flex items-stretch rounded-[18px] border border-white/12 bg-white/5 px-[clamp(16px,3vw,36px)] py-[22px] backdrop-blur-[20px]",
+          children: s.map((e, r) =>
+            (0, t.jsxs)(
+              "div",
+              {
+                className: `px-[clamp(12px,2vw,26px)] text-center ${r < s.length - 1 ? "border-r border-white/12" : ""}`,
+                children: [
+                  (0, t.jsx)("div", {
+                    className: `text-[clamp(32px,4.2vw,48px)] font-bold leading-none tracking-[-1px] tabular-nums ${"SEC" === e.label ? "text-accent" : "text-white"}`,
+                    children: String(e.value).padStart(2, "0"),
+                  }),
+                  (0, t.jsx)("div", {
+                    className:
+                      "mt-2 text-[10.5px] font-semibold tracking-[2px] text-white/70",
+                    children: e.label,
+                  }),
+                ],
+              },
+              e.label,
+            ),
+          ),
+        });
+      },
+    ]);
+  },
+]);
